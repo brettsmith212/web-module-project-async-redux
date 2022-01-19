@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { getBoredObj } from "./actions/";
 
-function App({ activity, type, price, participants, isFetching, dispatch }) {
+function App({
+  activity,
+  type,
+  price,
+  participants,
+  isFetching,
+  error,
+  dispatch,
+}) {
+  useEffect(() => {
+    dispatch(getBoredObj());
+  }, []);
+
   const handleClick = () => {
     dispatch(getBoredObj());
   };
+
+  if (error) {
+    return (
+      <div className="App">
+        <h2>Error occured: {error}</h2>
+      </div>
+    );
+  }
 
   if (isFetching) {
     return (
@@ -35,6 +55,7 @@ const mapStateToProps = (state) => {
     price: state.boredObj.price,
     participants: state.boredObj.participants,
     isFetching: state.isFetching,
+    error: state.error,
   };
 };
 
