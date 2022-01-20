@@ -13,7 +13,7 @@ export const getBoredObj = () => {
         dispatch({ type: FETCH_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        dispatch({ type: FETCH_FAIL, payload: err });
+        dispatch({ type: FETCH_FAIL, payload: err.message });
       });
   };
 };
